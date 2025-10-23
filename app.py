@@ -115,8 +115,7 @@ with st.expander("ℹ️ Información del sistema", expanded=False):
     st.write(f"**Cliente ID:** GIT-HUB")
 
 # Sección de control ON/OFF
-st.markdown('<div class="control-section">', unsafe_allow_html=True)
-st.markdown("### 💡 Control de Estado")
+st.markdown("### Control de Estado")
 
 col1, col2 = st.columns(2)
 
@@ -143,11 +142,9 @@ with col2:
 # Indicador de estado actual
 status_color = "🟢" if st.session_state.current_status == "ON" else "🔴"
 st.markdown(f"**Estado actual:** {status_color} {st.session_state.current_status}")
-st.markdown('</div>', unsafe_allow_html=True)
 
 # Sección de control analógico
-st.markdown('<div class="control-section">', unsafe_allow_html=True)
-st.markdown("### 🎚️ Control Analógico")
+st.markdown("### Control Analógico")
 
 values = st.slider(
     'Selecciona el valor analógico',
@@ -159,7 +156,7 @@ values = st.slider(
 
 st.write(f"**Valor seleccionado:** {values}")
 
-if st.button('📤 Enviar Valor Analógico', use_container_width=True):
+if st.button('Enviar Valor Analógico', use_container_width=True):
     st.session_state.last_value = values
     client1 = paho.Client("GIT-HUB")
     client1.on_publish = on_publish
@@ -171,8 +168,7 @@ if st.button('📤 Enviar Valor Analógico', use_container_width=True):
 st.markdown('</div>', unsafe_allow_html=True)
 
 # Sección de mensajes recibidos
-st.markdown('<div class="control-section">', unsafe_allow_html=True)
-st.markdown("### 📨 Mensajes Recibidos")
+st.markdown("### Mensajes Recibidos")
 
 if st.button('🔄 Actualizar Mensajes', use_container_width=True):
     try:
@@ -188,20 +184,9 @@ if st.button('🔄 Actualizar Mensajes', use_container_width=True):
         st.error(f"Error al recibir mensajes: {e}")
 
 if st.session_state.last_message:
-    st.markdown('<div class="info-box">', unsafe_allow_html=True)
     st.write("**Último mensaje recibido:**")
     st.code(st.session_state.last_message)
-    st.markdown('</div>', unsafe_allow_html=True)
 else:
     st.info("No hay mensajes recibidos. Haz clic en 'Actualizar Mensajes' para ver los últimos datos.")
 
-st.markdown('</div>', unsafe_allow_html=True)
 
-# Footer
-st.markdown("---")
-st.markdown(
-    "<div style='text-align: center; color: #64748B; padding: 1rem;'>"
-    "Control MQTT • Comunicación en tiempo real"
-    "</div>",
-    unsafe_allow_html=True
-)
